@@ -24,8 +24,8 @@
       <mat-form-field appearance="outline">
         <mat-label>Enter a date range</mat-label>
         <mat-date-range-input  [rangePicker]="picker">
-          <input matStartDate formControlName="start" placeholder="Start date" formControlName = "validFrom" required>
-          <input matEndDate formControlName="end" placeholder="End date" formControlName = "validTo" required>
+          <input matStartDate placeholder="Start date" formControlName = "validFrom" required>
+          <input matEndDate placeholder="End date" formControlName = "validTo" required>
 
         </mat-date-range-input>
         <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
@@ -151,12 +151,12 @@
     </div>
 
   </div>
-    <button type="submit" mat-raised-button color="primary">Save</button>
+    <button type="submit" [disabled]="couponsForm.invalid" mat-raised-button color="primary">Save</button>
 </form>
 </div>
 
 
-<!--[disabled]="couponsForm.invalid"-->
+
 
 
 
