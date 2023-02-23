@@ -1,7 +1,12 @@
-.add-more{
-  font-size: 20px;
-  color: blue;
+.add{
   cursor: pointer;
 }
 
+.remove{
+  cursor: pointer;
+}
+
+.col-md-1{
+  margin-top: 20px;
+}
 

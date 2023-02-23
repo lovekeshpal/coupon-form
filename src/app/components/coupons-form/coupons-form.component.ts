@@ -40,8 +40,7 @@ couponsForm = new FormGroup({
   tnc: new FormControl(''),
   rulesGrid: new FormArray([
     new FormGroup({
-      min_amount:new FormControl('', [Validators.required,  Validators.pattern("^[0-9]*$"),
-        Validators.maxLength(8)]),
+      min_amount:new FormControl('', Validators.required),
       max_amount:new FormControl(''),
       discount_type:new FormControl('', Validators.required),
       discount:new FormControl('', Validators.required),
@@ -63,6 +62,10 @@ addRule(){
   (<FormArray>this.couponsForm.get('rulesGrid')).push(newRule);
 }
 
+removeRule(index:number){
+  (<FormArray>this.couponsForm.get('rulesGrid')).removeAt(index);
+}
+
   submit(){
   console.log(this.couponsForm.value);
 }
@@ -73,14 +76,28 @@ availability(){
 
 
     if (this.couponsForm.value.couponAvailability == "unlimited"){
+
       // @ts-ignore
       this.couponsForm.get('couponCount').disable();
+      // @ts-ignore
+      this.couponsForm.get('couponCount').setValue(null);
+
     }else{
       // @ts-ignore
       this.couponsForm.get('couponCount').enable();
     }
 
     }
+
+
+    //For allowing user to enter the numbers only
+  numberOnly(event: { which: any; keyCode: any; }): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    return !(charCode > 31 && (charCode < 47 || charCode > 57));
+
+
+  }
+
 
   }
 

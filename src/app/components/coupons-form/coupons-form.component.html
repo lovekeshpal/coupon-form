@@ -24,8 +24,8 @@
       <mat-form-field appearance="outline">
         <mat-label>Enter a date range</mat-label>
         <mat-date-range-input  [rangePicker]="picker">
-          <input matStartDate placeholder="Start date" formControlName = "validFrom" required>
-          <input matEndDate placeholder="End date" formControlName = "validTo" required>
+          <input matStartDate placeholder="Start date" formControlName = "validFrom" (keypress)="numberOnly($event)">
+          <input matEndDate placeholder="End date" formControlName = "validTo" (keypress)="numberOnly($event)">
 
         </mat-date-range-input>
         <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
@@ -51,8 +51,9 @@
     <div class="col-md-8">
   <mat-form-field class="w-100" appearance="outline">
     <mat-label>Coupon Count</mat-label>
-    <input formControlName = "couponCount" matInput required>
-    <mat-error>Coupon Code is Required</mat-error>
+    <input formControlName = "couponCount" matInput  (keypress)="numberOnly($event)">
+    <mat-hint>Fill coupon count. For ex. 8</mat-hint>
+    <mat-error>Coupon Code is Required. Fill numeric values only.</mat-error>
   </mat-form-field>
     </div>
     <div class="col-md-4">
@@ -67,6 +68,8 @@
     </div>
 </div>
   <div class="row">
+    <h2>Terms and Conditions</h2>
+    <mat-divider></mat-divider>
     <angular-editor [config] = "config" formControlName = "tnc"></angular-editor>
 
   </div>
@@ -89,15 +92,16 @@
         <div class="col-md-6">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Min Amount</mat-label>
-            <input formControlName = "min_amount" matInput>
-            <mat-error>Minimum Amount is required and should be in numbers</mat-error>
+            <input formControlName = "min_amount" matInput  (keypress)="numberOnly($event)">
+            <mat-hint>Fill minimum amount. For ex. 10</mat-hint>
+            <mat-error>Minimum Amount is required. Only numeric values</mat-error>
           </mat-form-field>
         </div>
         <div class="col-md-6">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Max Amount</mat-label>
-            <input matInput formControlName = "max_amount">
-
+            <input matInput formControlName = "max_amount" (keypress)="numberOnly($event)">
+            <mat-hint>Fill maximum amount. For ex. 99</mat-hint>
           </mat-form-field>
         </div>
       </div>
@@ -109,14 +113,15 @@
               <mat-option value="user">Percentage</mat-option>
               <mat-option value="other">Amount</mat-option>
             </mat-select>
-            <mat-error>Please select discount type</mat-error>
+            <mat-error>Please select discount type. Only numeric values.</mat-error>
           </mat-form-field>
         </div>
         <div class="col-md-6">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Discount</mat-label>
-            <input matInput formControlName = "discount">
-            <mat-error>Please provide Discount value</mat-error>
+            <input matInput formControlName = "discount" (keypress)="numberOnly($event)">
+            <mat-error>Please provide Discount value. Only numeric values</mat-error>
+            <mat-hint>Fill discount. For ex. 15</mat-hint>
           </mat-form-field>
         </div>
       </div>
@@ -124,12 +129,13 @@
         <div class="col-md-6">
           <mat-form-field class="w-100" appearance="outline">
             <mat-label>Max Discount Amount</mat-label>
-            <input matInput formControlName = "max_discount">
+            <input matInput formControlName = "max_discount" (keypress)="numberOnly($event)">
 
           </mat-form-field>
         </div>
-        <div class="col-md-6">
-
+        <div class="col-md-5"></div>
+        <div class="col-md-1">
+          <span class="remove" (click)="removeRule(i)"><i class="bi bi-trash-fill fa-2x"></i></span>
         </div>
       </div>
 
@@ -138,19 +144,13 @@
 
   </div>
   <div class="row m-2">
-    <div class="col-md-8"></div>
-    <div class="col-md-4">
-      <div class="row g-0">
-        <div class="col-6 d-flex flex-row-reverse">
-          <i class="bi bi-plus-circle-fill fa-2x"></i>
-        </div>
-        <div class="col-6 d-flex flex-row-reverse">
-          <span class="add-more mt-2" (click)="addRule()">Add More</span>
-        </div>
-      </div>
+    <div class="col-md-12 d-flex justify-content-center">
+      <i class="add bi bi-plus-circle-fill fa-2x"  (click)="addRule()"></i>
     </div>
 
+
   </div>
+    <p >(<span style="color: red">*</span>) Please fill all the required fields to save.</p>
     <button type="submit" [disabled]="couponsForm.invalid" mat-raised-button color="primary">Save</button>
 </form>
 </div>
